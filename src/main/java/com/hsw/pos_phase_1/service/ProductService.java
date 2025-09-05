@@ -45,10 +45,11 @@ public class ProductService {
     }
 
     
-    public void deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found with id: " + id);
+    public boolean deleteProductById(Long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return true;
         }
-        productRepository.deleteById(id);
+        return false;
     }
 }

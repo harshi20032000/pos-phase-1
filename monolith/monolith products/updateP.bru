@@ -1,0 +1,25 @@
+meta {
+  name: updateP
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:8080/pas_phase1/products/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Coke 500ml",
+    "description": "aerated drink with sugar",
+    "price": 70,
+    "stockQuantity": 100,
+    "category": "Beverages"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

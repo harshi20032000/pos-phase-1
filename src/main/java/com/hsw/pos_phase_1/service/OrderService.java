@@ -45,11 +45,12 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public void deleteOrder(Long id) {
-        if (!orderRepository.existsById(id)) {
-            throw new RuntimeException("Order not found with id: " + id);
+    public boolean deleteOrderById(Long id) {
+        if (orderRepository.existsById(id)) {
+            orderRepository.deleteById(id);
+            return true;
         }
-        orderRepository.deleteById(id);
+        return false;
     }
 
     public Order updateOrder(Long orderId, Order updatedOrder) {

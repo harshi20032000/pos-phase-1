@@ -1,21 +1,21 @@
 meta {
   name: createP
   type: http
-  seq: 3
+  seq: 2
 }
 
 post {
-  url: http://localhost:8080/api/products
+  url: http://localhost:8080/pas_phase1/products
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "name": "Tic tac saver pack",
-    "price": 28.0,
+    "name": "Banana a pack of dozens",
+    "price": 60.0,
     "stockQuantity": 100,
-    "category": "Confectionary"
+    "category": "Fruits"
   }
 }
 
