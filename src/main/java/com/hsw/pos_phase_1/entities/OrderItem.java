@@ -1,4 +1,4 @@
-package com.hsw.pos_phase_1.model;
+package com.hsw.pos_phase_1.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
 package com.hsw.pos_phase_1.controller;
 
-import com.hsw.pos_phase_1.model.Order;
+import com.hsw.pos_phase_1.entities.Order;
 import com.hsw.pos_phase_1.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

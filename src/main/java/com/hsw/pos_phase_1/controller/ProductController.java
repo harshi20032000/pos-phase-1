@@ -1,6 +1,6 @@
 package com.hsw.pos_phase_1.controller;
 
-import com.hsw.pos_phase_1.model.Product;
+import com.hsw.pos_phase_1.entities.Product;
 import com.hsw.pos_phase_1.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

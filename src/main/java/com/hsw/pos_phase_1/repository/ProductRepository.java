@@ -1,6 +1,6 @@
 package com.hsw.pos_phase_1.repository;
 
-import com.hsw.pos_phase_1.model.Product;
+import com.hsw.pos_phase_1.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

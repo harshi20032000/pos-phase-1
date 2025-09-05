@@ -1,8 +1,8 @@
 package com.hsw.pos_phase_1.service;
 
-import com.hsw.pos_phase_1.model.Order;
-import com.hsw.pos_phase_1.model.OrderStatus;
-import com.hsw.pos_phase_1.model.Product;
+import com.hsw.pos_phase_1.entities.Order;
+import com.hsw.pos_phase_1.enums.OrderStatus;
+import com.hsw.pos_phase_1.entities.Product;
 import com.hsw.pos_phase_1.repository.OrderRepository;
 import com.hsw.pos_phase_1.repository.ProductRepository;
 import org.springframework.stereotype.Service;

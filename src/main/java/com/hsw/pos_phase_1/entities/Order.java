@@ -1,7 +1,9 @@
-package com.hsw.pos_phase_1.model;
+package com.hsw.pos_phase_1.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.hsw.pos_phase_1.enums.OrderStatus;
+import com.hsw.pos_phase_1.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

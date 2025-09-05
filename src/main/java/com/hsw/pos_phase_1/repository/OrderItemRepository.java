@@ -1,8 +1,8 @@
 package com.hsw.pos_phase_1.repository;
 
 
-import com.hsw.pos_phase_1.model.Order;
-import com.hsw.pos_phase_1.model.OrderItem;
+import com.hsw.pos_phase_1.entities.Order;
+import com.hsw.pos_phase_1.entities.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

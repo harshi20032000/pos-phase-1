@@ -1,6 +1,6 @@
 package com.hsw.pos_phase_1.service;
 
-import com.hsw.pos_phase_1.model.Product;
+import com.hsw.pos_phase_1.entities.Product;
 import com.hsw.pos_phase_1.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
