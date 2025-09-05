@@ -1,7 +1,6 @@
 package com.hsw.pos_phase_1.controller;
 
 import com.hsw.pos_phase_1.entities.Order;
-import com.hsw.pos_phase_1.entities.Product;
 import com.hsw.pos_phase_1.models.BaseUIResponse;
 import com.hsw.pos_phase_1.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -19,54 +18,84 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public BaseUIResponse<Order> createOrder(@RequestBody Order order) {
+    public ResponseEntity<BaseUIResponse<Order>> createOrder(@RequestBody Order order) {
         Order savedOrder = orderService.createOrder(order);
-        BaseUIResponse<Order> baseUIResponse = new BaseUIResponse<>();
-        baseUIResponse.setResponsePayload(savedOrder);
-        return baseUIResponse;
+
+        BaseUIResponse<Order> response = new BaseUIResponse<>();
+        response.setResponsePayload(savedOrder);
+        response.setMessage("Order created successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDER_CREATED");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @GetMapping("/{orderId}")
-    public BaseUIResponse<Order> getOrderById(@PathVariable Long orderId) {
-        BaseUIResponse<Order> baseUIResponse = new BaseUIResponse<>();
-        baseUIResponse.setResponsePayload(orderService.getOrderById(orderId));
-        return baseUIResponse;
+    public ResponseEntity<BaseUIResponse<Order>> getOrderById(@PathVariable Long orderId) {
+        Order order = orderService.getOrderById(orderId); // throws if not found
+
+        BaseUIResponse<Order> response = new BaseUIResponse<>();
+        response.setResponsePayload(order);
+        response.setMessage("Order fetched successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDER_FETCHED");
+
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping
-    public BaseUIResponse<List<Order>> getAllOrders() {
-        BaseUIResponse<List<Order>>  baseUIResponse = new BaseUIResponse<>();
-        baseUIResponse.setResponsePayload(orderService.getAllOrders());
-        return baseUIResponse;
+    public ResponseEntity<BaseUIResponse<List<Order>>> getAllOrders() {
+        List<Order> allOrders = orderService.getAllOrders();
+
+        BaseUIResponse<List<Order>> response = new BaseUIResponse<>();
+        response.setResponsePayload(allOrders);
+        response.setMessage("Orders fetched successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDERS_FETCHED");
+
+        return ResponseEntity.ok(response);
     }
+
 
     @DeleteMapping("/{orderId}")
-    public BaseUIResponse<String> deleteOrder(@PathVariable Long orderId) {
-        boolean isDeleted = orderService.deleteOrderById(orderId);
+    public ResponseEntity<BaseUIResponse<String>> deleteOrder(@PathVariable Long orderId) {
+        orderService.deleteOrderById(orderId); // throws if not found
+
         BaseUIResponse<String> response = new BaseUIResponse<>();
+        response.setResponsePayload("Order with ID " + orderId + " deleted successfully.");
+        response.setMessage("Order deleted successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDER_DELETED");
 
-        if (isDeleted) {
-            response.setResponsePayload("Order with ID " + orderId + " deleted successfully.");
-        } else {
-            response.setResponsePayload("Failed to delete Order with ID " + orderId + ".");
-        }
-
-        return response;
+        return ResponseEntity.ok(response);
     }
+
 
     @PutMapping("/{orderId}")
-    public BaseUIResponse<Order> updateOrder(@PathVariable Long orderId,
-                                             @RequestBody Order updatedOrder) {
-        BaseUIResponse<Order> baseUIResponse = new BaseUIResponse<>();
-        baseUIResponse.setResponsePayload(orderService.updateOrder(orderId, updatedOrder));
-        return baseUIResponse;
+    public ResponseEntity<BaseUIResponse<Order>> updateOrder(@PathVariable Long orderId, @RequestBody Order updatedOrder) {
+
+        Order savedOrder = orderService.updateOrder(orderId, updatedOrder);
+
+        BaseUIResponse<Order> response = new BaseUIResponse<>();
+        response.setResponsePayload(savedOrder);
+        response.setMessage("Order updated successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDER_UPDATED");
+
+        return ResponseEntity.ok(response);
     }
 
+
     @PatchMapping("/{orderId}/completep")
-    public BaseUIResponse<Order> payForOrder(@PathVariable Long orderId) {
-        BaseUIResponse<Order> baseUIResponse = new BaseUIResponse<>();
-        baseUIResponse.setResponsePayload(orderService.markOrderAsPaid(orderId));
-        return baseUIResponse;
+    public ResponseEntity<BaseUIResponse<Order>> payForOrder(@PathVariable Long orderId) {
+        BaseUIResponse<Order> response = new BaseUIResponse<>();
+        response.setResponsePayload(orderService.markOrderAsPaid(orderId));
+        response.setMessage("Order updated successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDER_UPDATED");
+        return ResponseEntity.ok(response);
     }
 
 }

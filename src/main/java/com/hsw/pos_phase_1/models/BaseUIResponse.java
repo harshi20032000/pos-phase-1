@@ -17,14 +17,13 @@ public class BaseUIResponse<T> implements Serializable {
     private String message;
     private String extendedMessage;
     private String status;
-    private boolean hasError=false;
+    private boolean hasError;
     private T responsePayload;
 
 
     public void setResponsePayload(T responsePayload) {
-        this.setCode(Constants.STATUS_SUCCESS_CODE);
-        this.setStatus(Constants.STATUS_SUCCESS);
         this.responsePayload = responsePayload;
+        this.hasError = false;
     }
 
     public void setError(ErrorMessageEnum error) {
@@ -33,9 +32,4 @@ public class BaseUIResponse<T> implements Serializable {
         this.setMessage(error.getCustomMessage());
         this.setHasError(true);
     }
-    public void setEmptyResponsePayload() {
-        this.setCode(Constants.STATUS_SUCCESS_CODE);
-        this.setStatus(Constants.STATUS_SUCCESS);
-    }
-
 }

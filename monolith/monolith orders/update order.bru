@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: http://localhost:8080/pas_phase1/orders/2
+  url: http://localhost:8080/pas_phase1/orders/1
   body: json
   auth: inherit
 }
@@ -18,6 +18,12 @@ body:json {
           "productId": 4
         },
         "quantity": 2
+      },
+      {
+        "product": {
+          "productId": 5
+        },
+        "quantity": 5
       },
       {
         "product": {
