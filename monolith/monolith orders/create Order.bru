@@ -1,0 +1,35 @@
+meta {
+  name: create Order
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/pas_phase1/orders
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "status": "PENDING",
+    "items": [
+      {
+        "product": {
+          "productId": 3
+        },
+        "quantity": 2
+      },
+      {
+        "product": {
+          "productId": 2
+        },
+        "quantity": 1
+      }
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+}

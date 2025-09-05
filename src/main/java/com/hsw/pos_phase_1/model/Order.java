@@ -1,6 +1,7 @@
 package com.hsw.pos_phase_1.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -30,6 +31,7 @@ public class Order {
 
     // One order can have multiple items
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderItem> items;
 
     @PrePersist

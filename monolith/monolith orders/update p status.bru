@@ -1,0 +1,15 @@
+meta {
+  name: update p status
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:8080/pas_phase1/orders/1/completep
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

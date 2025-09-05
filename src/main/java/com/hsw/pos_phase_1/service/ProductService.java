@@ -5,7 +5,6 @@ import com.hsw.pos_phase_1.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -42,7 +41,7 @@ public class ProductService {
         fetchedProduct.setStockQuantity(product.getStockQuantity());
         fetchedProduct.setCategory(product.getCategory());
 
-        return productRepository.save(product);
+        return productRepository.save(fetchedProduct);
     }
 
     

@@ -1,5 +1,6 @@
 package com.hsw.pos_phase_1.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
     private Order order;
 
     @ManyToOne
