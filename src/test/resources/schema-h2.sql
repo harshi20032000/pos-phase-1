@@ -1,3 +1,0 @@
-CREATE SCHEMA IF NOT EXISTS phase_1;
-
-
