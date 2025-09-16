@@ -1,0 +1,25 @@
+meta {
+  name: phoneLogin
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/pas_phase1/users/loginWithPhone
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "phoneNumber": "7980140018"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

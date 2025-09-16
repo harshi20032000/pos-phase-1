@@ -1,0 +1,27 @@
+meta {
+  name: createUser
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/pas_phase1/users/createUser
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "username": "champaklal",
+    "secretQuestion": "what do u want?",
+    "secretAnswer": "paisa"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

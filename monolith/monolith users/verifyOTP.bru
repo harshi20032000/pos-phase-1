@@ -1,0 +1,26 @@
+meta {
+  name: verifyOTP
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/pas_phase1/users/verifyOtp
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "phoneNumber": "7980140018",
+     "otp": "123456"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

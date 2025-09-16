@@ -1,0 +1,26 @@
+meta {
+  name: verifyAnswer
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/pas_phase1/users/verifySecretAnswer
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "username": "champaklal",
+    "secretAnswer": "paisa"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

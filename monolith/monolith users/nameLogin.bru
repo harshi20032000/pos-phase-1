@@ -1,0 +1,25 @@
+meta {
+  name: nameLogin
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/pas_phase1/users/loginWithUserName
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "username": "champaklal"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

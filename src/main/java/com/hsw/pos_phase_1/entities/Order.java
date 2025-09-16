@@ -36,6 +36,10 @@ public class Order {
     @JsonManagedReference
     private List<OrderItem> items;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @PrePersist
     public void onCreate() {
         orderDate = LocalDateTime.now();
