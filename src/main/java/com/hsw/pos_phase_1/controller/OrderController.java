@@ -17,23 +17,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping
-    public ResponseEntity<BaseUIResponse<Order>> createOrder(@RequestBody Order order) {
-        Order savedOrder = orderService.createOrder(order);
-
-        BaseUIResponse<Order> response = new BaseUIResponse<>();
-        response.setResponsePayload(savedOrder);
-        response.setMessage("Order created successfully");
-        response.setStatus("SUCCESS");
-        response.setCode("ORDER_CREATED");
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<BaseUIResponse<Order>> getOrderById(@PathVariable Long orderId) {
-        Order order = orderService.getOrderById(orderId); // throws if not found
+    public ResponseEntity<BaseUIResponse<Order>> getOrderById(@PathVariable Long orderId, @RequestHeader("userId")Long userId) {
+        Order order = orderService.getOrderById(orderId, userId); // throws if not found
 
         BaseUIResponse<Order> response = new BaseUIResponse<>();
         response.setResponsePayload(order);
@@ -46,8 +33,8 @@ public class OrderController {
 
 
     @GetMapping
-    public ResponseEntity<BaseUIResponse<List<Order>>> getAllOrders() {
-        List<Order> allOrders = orderService.getAllOrders();
+    public ResponseEntity<BaseUIResponse<List<Order>>> getAllOrders(@RequestHeader("userId")Long userId) {
+        List<Order> allOrders = orderService.getAllOrders(userId);
 
         BaseUIResponse<List<Order>> response = new BaseUIResponse<>();
         response.setResponsePayload(allOrders);
@@ -58,25 +45,35 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
+/*
+-- Anonymous user (guest orders)
+    INSERT INTO phase_1.users (user_id, loyalty_number, phone_number, secret_answer, secret_question, username)
+    VALUES (0, NULL, NULL, NULL, NULL, 'anonymous');
 
-    @DeleteMapping("/{orderId}")
-    public ResponseEntity<BaseUIResponse<String>> deleteOrder(@PathVariable Long orderId) {
-        orderService.deleteOrderById(orderId); // throws if not found
+-- Admin user (full permissions)
+    INSERT INTO phase_1.users (user_id, loyalty_number, phone_number, secret_answer, secret_question, username)
+    VALUES (1, 1001, '9999999999', 'adminAnswer', 'What is your role?', 'admin');
+*/
 
-        BaseUIResponse<String> response = new BaseUIResponse<>();
-        response.setResponsePayload("Order with ID " + orderId + " deleted successfully.");
-        response.setMessage("Order deleted successfully");
+    @PostMapping
+    public ResponseEntity<BaseUIResponse<Order>> createOrder(@RequestBody Order order) {
+
+        Order savedOrder = orderService.createOrder(order);
+
+        BaseUIResponse<Order> response = new BaseUIResponse<>();
+        response.setResponsePayload(savedOrder);
+        response.setMessage("Order created successfully");
         response.setStatus("SUCCESS");
-        response.setCode("ORDER_DELETED");
+        response.setCode("ORDER_CREATED");
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<BaseUIResponse<Order>> updateOrder(@PathVariable Long orderId, @RequestBody Order updatedOrder) {
+    public ResponseEntity<BaseUIResponse<Order>> updateOrder(@PathVariable Long orderId, @RequestBody Order updatedOrder, @RequestHeader("userId")Long userId) {
 
-        Order savedOrder = orderService.updateOrder(orderId, updatedOrder);
+        Order savedOrder = orderService.updateOrder(orderId, updatedOrder, userId);
 
         BaseUIResponse<Order> response = new BaseUIResponse<>();
         response.setResponsePayload(savedOrder);
@@ -87,6 +84,28 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
+
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<BaseUIResponse<String>> deleteOrder(@PathVariable Long orderId, @RequestHeader("userId")Long userId) {
+        BaseUIResponse<String> response = new BaseUIResponse<>();
+       if(orderService.deleteOrderById(orderId, userId)) {
+
+
+        response.setResponsePayload("Order with ID " + orderId + " deleted successfully.");
+        response.setMessage("Order deleted successfully");
+        response.setStatus("SUCCESS");
+        response.setCode("ORDER_DELETED");
+
+        return ResponseEntity.ok(response);
+       }
+        response.setResponsePayload("Order with ID " + orderId + "not deleted successfully.");
+        response.setMessage("Order not deleted successfully");
+        response.setStatus("FAILED");
+        response.setCode("ORDER_NOT_DELETED");
+
+        return ResponseEntity.ok(response);
+    }
 
     @PatchMapping("/{orderId}/completep")
     public ResponseEntity<BaseUIResponse<Order>> payForOrder(@PathVariable Long orderId) {

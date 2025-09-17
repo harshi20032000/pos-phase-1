@@ -33,7 +33,7 @@ public class UserService {
                 .expiresAt(now.plusMinutes(5))
                 .build();
         otpRepository.save(otpEntity);
-        //Lets Encrypt this and store in db will redirect by ui from to enter otp from there and verify
+        //Encrypt this and store in db will redirect by ui from to enter otp from there and verify
         return new UserLoginResponse(request, true, "OTP Generated Proceed", null);
     }
 
@@ -71,7 +71,7 @@ public class UserService {
 
     public User createUser(UserLoginRequest request) {
         // Check if username already exists
-        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+        if (request.getUsername().equalsIgnoreCase("anonymous") || request.getUsername().equalsIgnoreCase("admin") || userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new RuntimeException("Username already exists!");
         }
 
